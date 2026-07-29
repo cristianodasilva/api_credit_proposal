@@ -1,0 +1,50 @@
+# API Neo Crédito
+
+## Tecnologias
+- Node.js
+- TypeScript
+- Fastify
+- Prisma
+- PostgreSQL
+- JWT
+- Zod
+
+## Como executar
+
+```bash
+docker compose up -d
+npm install
+npx prisma migrate dev
+npm run seed
+npm run dev
+```
+
+## Usuários seed
+
+- corban1@neocredito.com.br / Teste@2024
+- corban2@neocredito.com.br / Teste@2024
+- operador@neocredito.com.br / Teste@2024
+
+## Endpoints
+
+- POST /auth/login
+- GET /auth/me
+- POST /propostas
+- GET /propostas
+- GET /propostas/:id
+- PATCH /propostas/:id/status
+- DELETE /propostas/:id
+
+## Decisões técnicas
+
+- Fastify escolhido pela simplicidade e performance.
+- Prisma para tipagem forte e produtividade.
+- PostgreSQL por suporte robusto a transações e enums.
+- Soft delete implementado via status CANCELADA.
+
+## O que faria com mais tempo
+
+- Testes unitários completos das regras financeiras.
+- Refresh token.
+- Auditoria de transições de status.
+- Rate limiting.

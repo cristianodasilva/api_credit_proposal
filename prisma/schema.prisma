@@ -1,0 +1,60 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum UserRole {
+  CORBAN
+  OPERATOR
+}
+
+enum ProposalStatus {
+  RASCUNHO
+  EM_ANALISE
+  APROVADA
+  REPROVADA
+  CANCELADA
+}
+
+model User {
+  id String @id @default(uuid())
+
+  name         String
+  email        String @unique
+  passwordHash String
+
+  role UserRole
+
+  proposals Proposal[] @relation("CorbanProposals")
+
+  createdAt DateTime @default(now())
+}
+
+model Proposal {
+  id String @id @default(uuid())
+
+  customerName   String
+  customerCpf    String
+  customerIncome Int
+
+  requestedAmount Decimal
+  installments    Int
+
+  interestRate      Decimal
+  installmentAmount Decimal
+  totalAmount       Decimal
+
+  status ProposalStatus @default(RASCUNHO)
+
+  rejectionReason String?
+
+  corbanId String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  corban User @relation("CorbanProposals", fields: [corbanId], references: [id])
+}
