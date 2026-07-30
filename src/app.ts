@@ -1,25 +1,39 @@
 import Fastify from "fastify";
+import fastifyJwt from "@fastify/jwt";
+import { registerSwagger } from "./shared/swagger.js";
+import { authRoutes } from "./modules/auth/auth.routes.js";
 
 
-export function createApp() {
+export async function createApp() {
+	// Instância principal do Fastify.
 	const app = Fastify({
-		logger: true,
+		logger: {
+			level: 'error',
+		}
 	});
-
 
 	/*
-		Rota inicial apenas para validar
-		que o servidor está respondendo.
-
-		Depois ela pode ser removida ou substituída
-		pela documentação Swagger.
+	  Registro do JWT.
+	  O plugin adiciona recursos para:
+	  - gerar token
+	  - validar token
 	*/
-	app.get("/", async () => {
-		return {
-			message: "API Credit Proposal running",
-		};
+	await app.register(fastifyJwt, {
+		secret:
+			process.env.JWT_SECRET ??
+			"development-secret",
+
+		// Todo token emitido pela API terá validade de 8 horas
+		sign: {
+			expiresIn: "8h",
+		},
 	});
 
+	// Swagger
+	await registerSwagger(app);
+
+	// Autenticação
+	await app.register(authRoutes);
 
 	return app;
 }
