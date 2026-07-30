@@ -33,7 +33,5 @@ export async function registerSwagger(
 	});
 
 	//Documentação disponível em: http://localhost:3333/docs	
-	await app.register(swaggerUi, {
-		routePrefix: "/docs",
-	});
+	await app.register(swaggerUi, {	routePrefix: "/docs",});
 }

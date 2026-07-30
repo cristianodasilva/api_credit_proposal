@@ -99,7 +99,15 @@ export function calculateCreditValues(
 	const totalAmount =
 		installmentAmount *
 		installments;
+	/*
+	  O arredondamento acontece apenas no retorno.
+      Isso evita acumular diferença de centavos 
+	  durante os cálculos financeiros.
 
+	  O cálculo interno mantém a precisão completa e 
+	  somente o valor final persistido é formatado
+	  com duas casas decimais.
+	*/
 	return {
 		// Arredonda para 2 casas decimais para persistir valores monetários.		
 		installmentAmount: Number(

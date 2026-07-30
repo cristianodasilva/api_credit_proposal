@@ -2,6 +2,7 @@ import Fastify from "fastify";
 import fastifyJwt from "@fastify/jwt";
 import { registerSwagger } from "./shared/swagger.js";
 import { authRoutes } from "./modules/auth/auth.routes.js";
+import { proposalsRoutes } from "./modules/proposals/proposals.routes.js";
 
 
 export async function createApp() {
@@ -34,6 +35,9 @@ export async function createApp() {
 
 	// Autenticação
 	await app.register(authRoutes);
+
+	// Propostas
+	await app.register(proposalsRoutes);
 
 	return app;
 }

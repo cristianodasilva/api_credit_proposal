@@ -5,7 +5,6 @@ import type {
 
 /*
   Responsável por validar o token JWT enviado no header.
-
   Se o token for inválido ou inexistente, o Fastify retorna 401 automaticamente.
 */
 export async function authenticate(
