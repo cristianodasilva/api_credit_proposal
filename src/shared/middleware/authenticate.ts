@@ -3,7 +3,6 @@ import type {
 	FastifyRequest,
 } from "fastify";
 
-
 /*
   Responsável por validar o JWT enviado no header.
   Casos tratados:

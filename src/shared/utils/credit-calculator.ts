@@ -55,13 +55,11 @@ export function getInterestRate(
 }
 
 /*
-	Calcula os valores financeiros de uma proposta 
-	utilizando a fórmula fornecida no desafio.
-
-	Fórmula:
-	valorParcela = valorSolicitado * (taxa * (1 + taxa)^n) / ((1 + taxa)^n - 1)
-
-	totalAPagar = valorParcela * numeroParcelas
+  Calcula os valores financeiros de uma proposta 
+  utilizando a fórmula fornecida no desafio.
+  Fórmula:
+  valorParcela = valorSolicitado * (taxa * (1 + taxa)^n) / ((1 + taxa)^n - 1)
+  totalAPagar = valorParcela * numeroParcelas
 */
 export function calculateCreditValues(
 	amount: number,
@@ -69,15 +67,15 @@ export function calculateCreditValues(
 	installments: InstallmentOption,
 ) {
 	/*
-		A fórmula utiliza a taxa em formato decimal.
-		Exemplo: 2.49% -> 0.0249
+	  A fórmula utiliza a taxa em formato decimal.
+	  Exemplo: 2.49% -> 0.0249
 	*/
 	const monthlyRate =
 		interestRate / 100;
 
 	/*
-		Cálculo da parcela utilizando a fórmula Price 
-		simplificada solicitada no desafio.
+	  Cálculo da parcela utilizando a fórmula Price 
+	  simplificada solicitada no desafio.
 	*/
 	const installmentAmount =
 		amount *
@@ -122,11 +120,11 @@ export function calculateCreditValues(
 
 
 /*
-	Função principal utilizada pelo módulo de propostas.
-	Ela recebe apenas:
-	- valor solicitado
-	- quantidade de parcelas
-	E retorna tudo que a proposta precisa salvar no banco.
+  Função principal utilizada pelo módulo de propostas.
+  Ela recebe apenas:
+  - valor solicitado
+  - quantidade de parcelas
+  E retorna tudo que a proposta precisa salvar no banco.
 */
 export function calculateProposal(
 	requestedAmount: number,
