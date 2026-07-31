@@ -23,7 +23,6 @@ export async function createApp() {
 		secret:
 			process.env.JWT_SECRET ??
 			"development-secret",
-
 		// Todo token emitido pela API terá validade de 8 horas
 		sign: {
 			expiresIn: "8h",
