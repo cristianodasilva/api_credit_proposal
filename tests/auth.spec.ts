@@ -26,7 +26,7 @@ describe("INTEGRAÇÃO - Auth", () => {
 			await request(app.server)
 				.post("/auth/login")
 				.send({
-					email: "corban1@neocredito.com.br",
+					email: "corban1@example.com",
 					password: "Teste@2024",
 				});
 
@@ -41,7 +41,7 @@ describe("INTEGRAÇÃO - Auth", () => {
 			await request(app.server)
 				.post("/auth/login")
 				.send({
-					email: "corban1@neocredito.com.br",
+					email: "corban1@example.com",
 					password: "senha-incorreta",
 				});
 
@@ -58,7 +58,7 @@ describe("INTEGRAÇÃO - Auth", () => {
 			await request(app.server)
 				.post("/auth/login")
 				.send({
-					email: "corban1@neocredito.com.br",
+					email: "corban1@example.com",
 					password: "Teste@2024",
 				});
 
@@ -77,7 +77,7 @@ describe("INTEGRAÇÃO - Auth", () => {
 
 
 		expect(response.body.email)
-			.toBe("corban1@neocredito.com.br",);
+			.toBe("corban1@example.com",);
 
 		expect(response.body.role)
 			.toBe("CORBAN",);

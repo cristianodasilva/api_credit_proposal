@@ -1,12 +1,12 @@
 services:
   postgres:
     image: postgres:17
-    container_name: neo_credit_postgres
+    container_name: credit_proposals_postgres
     restart: unless-stopped
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: neo_credit
+      POSTGRES_DB: credit_proposals
     ports:
       - "5433:5432"
     volumes:
