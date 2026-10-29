@@ -33,7 +33,7 @@ describe("INTEGRAÇÃO - Propostas", () => {
 				.post("/auth/login")
 				.send({
 					email:
-						"corban1@neocredito.com.br",
+						"corban1@example.com",
 					password:
 						"Teste@2024",
 				});
@@ -120,7 +120,7 @@ describe("INTEGRAÇÃO - Propostas", () => {
 				.post("/auth/login")
 				.send({
 					email:
-						"operador@neocredito.com.br",
+						"operador@example.com",
 					password:
 						"Teste@2024",
 				});

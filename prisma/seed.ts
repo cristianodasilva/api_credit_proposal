@@ -39,7 +39,7 @@ async function main() {
 	const corban1 = await prisma.user.create({
 		data: {
 			name: "Corban 1",
-			email: "corban1@neocredito.com.br",
+			email: "corban1@example.com",
 			passwordHash,
 			role: UserRole.CORBAN,
 		},
@@ -48,7 +48,7 @@ async function main() {
 	const corban2 = await prisma.user.create({
 		data: {
 			name: "Corban 2",
-			email: "corban2@neocredito.com.br",
+			email: "corban2@example.com",
 			passwordHash,
 			role: UserRole.CORBAN,
 		},
@@ -63,7 +63,7 @@ async function main() {
 	const operator = await prisma.user.create({
 		data: {
 			name: "Operador",
-			email: "operador@neocredito.com.br",
+			email: "operador@example.com",
 			passwordHash,
 			role: UserRole.OPERATOR,
 		},

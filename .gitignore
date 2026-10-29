@@ -18,3 +18,12 @@ tests/*.map
 
 # Keep custom TypeScript declarations
 !src/@types/*.d.ts
+
+# Environment variables
+.env
+
+# AI tooling (skills)
+.agents/
+.claude/
+.windsurf/
+skills-lock.json

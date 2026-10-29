@@ -1,4 +1,4 @@
-# API Neo Crédito
+# API de Propostas de Crédito
 
 API desenvolvida para gerenciamento de propostas de crédito, permitindo criação, consulta, atualização de status e cancelamento de propostas com controle de acesso por perfil de usuário.
 
@@ -17,18 +17,26 @@ API desenvolvida para gerenciamento de propostas de crédito, permitindo criaç�
 
 ### Pré-requisitos
 
-* Node.js
+* Node.js 24 (versão utilizada no desenvolvimento)
 * Docker e Docker Compose
 * PostgreSQL (caso não utilize Docker)
 
 ### Instalação
 
 ```bash
+cp .env.example .env
 docker compose up -d
 npm install
+npx prisma generate
 npx prisma migrate dev
 npm run seed
 npm run dev
+```
+
+Antes de iniciar, edite o `.env` e troque o `JWT_SECRET` por uma chave própria. Para gerar uma:
+
+```bash
+openssl rand -hex 32
 ```
 
 A API será iniciada em:
@@ -37,15 +45,23 @@ A API será iniciada em:
 http://localhost:3333
 ```
 
+A documentação interativa (Swagger) fica disponível em:
+
+```
+http://localhost:3333/docs
+```
+
+Para testar as rotas protegidas, faça login em `POST /auth/login`, copie o token retornado e cole no botão **Authorize** (apenas o token, sem o prefixo `Bearer`).
+
 ## Usuários para teste
 
 Após executar o seed:
 
-| Perfil   | Email                                                           | Senha      |
-| -------- | --------------------------------------------------------------- | ---------- |
-| CORBAN   | [corban1@neocredito.com.br](mailto:corban1@neocredito.com.br)   | Teste@2024 |
-| CORBAN   | [corban2@neocredito.com.br](mailto:corban2@neocredito.com.br)   | Teste@2024 |
-| OPERADOR | [operador@neocredito.com.br](mailto:operador@neocredito.com.br) | Teste@2024 |
+| Perfil   | Email                | Senha      |
+| -------- | -------------------- | ---------- |
+| CORBAN   | corban1@example.com  | Teste@2024 |
+| CORBAN   | corban2@example.com  | Teste@2024 |
+| OPERADOR | operador@example.com | Teste@2024 |
 
 ## Endpoints
 
@@ -70,7 +86,7 @@ DELETE /propostas/:id
 
 ### Perfis de acesso
 
-**CORBAN**
+**CORBAN** (correspondente bancário, quem cria as propostas)
 
 * Pode criar propostas.
 * Visualiza apenas propostas associadas ao próprio usuário.
@@ -183,7 +199,7 @@ npm test
 
 ## Melhorias futuras
 
-Com mais tempo, algumas evoluções poderiam ser adicionadas:
+Próximas evoluções planejadas:
 
 * Aumentar a cobertura de testes para cenários adicionais de regras de negócio.
 * Centralizar o gerenciamento do ciclo de vida dos testes, utilizando um setup compartilhado para recursos como conexão com banco de dados.

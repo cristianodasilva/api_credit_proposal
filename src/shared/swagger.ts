@@ -13,7 +13,7 @@ export async function registerSwagger(
 	await app.register(swagger, {
 		openapi: {
 			info: {
-				title: "Neo Crédito API",
+				title: "API de Propostas de Crédito",
 				description:
 					"API para gerenciamento de propostas de crédito",
 				version: "1.0.0",
