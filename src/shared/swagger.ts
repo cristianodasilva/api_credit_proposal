@@ -7,15 +7,12 @@ import swaggerUi from "@fastify/swagger-ui";
 	O Swagger não cria rotas da API.
 	Ele apenas documenta as rotas que registrarmos posteriormente.
 */
-export async function registerSwagger(
-	app: FastifyInstance,
-) {
+export async function registerSwagger(app: FastifyInstance) {
 	await app.register(swagger, {
 		openapi: {
 			info: {
 				title: "API de Propostas de Crédito",
-				description:
-					"API para gerenciamento de propostas de crédito",
+				description: "API para gerenciamento de propostas de crédito",
 				version: "1.0.0",
 			},
 
@@ -32,6 +29,18 @@ export async function registerSwagger(
 		},
 	});
 
-	//Documentação disponível em: http://localhost:3333/docs	
-	await app.register(swaggerUi, {	routePrefix: "/docs",});
+	//Documentação disponível em: http://localhost:3333/docs
+	await app.register(swaggerUi, { routePrefix: "/docs" });
+}
+
+// Formato padrão das respostas de erro, reutilizado pelas rotas.
+export function errorResponse(description: string) {
+	return {
+		description,
+		type: "object",
+		properties: {
+			error: { type: "string" },
+		},
+		additionalProperties: true,
+	};
 }
