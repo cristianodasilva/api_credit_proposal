@@ -1,23 +1,11 @@
 # Dependencies
 node_modules/
 
-# TypeScript build generated files
-*.js
-*.js.map
-*.d.ts.map
+# Build output
+dist/
 
-# Prisma generated files
-prisma/*.js
-prisma/*.d.ts
-prisma/*.map
-
-# Tests generated files
-tests/*.js
-tests/*.d.ts
-tests/*.map
-
-# Keep custom TypeScript declarations
-!src/@types/*.d.ts
+# Test coverage
+coverage/
 
 # Environment variables
 .env
