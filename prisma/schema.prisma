@@ -38,14 +38,14 @@ model Proposal {
 
   customerName   String
   customerCpf    String
-  customerIncome Int
+  customerIncome Decimal @db.Decimal(12, 2)
 
-  requestedAmount Decimal
+  requestedAmount Decimal @db.Decimal(12, 2)
   installments    Int
 
-  interestRate      Decimal
-  installmentAmount Decimal
-  totalAmount       Decimal
+  interestRate      Decimal @db.Decimal(5, 2)
+  installmentAmount Decimal @db.Decimal(12, 2)
+  totalAmount       Decimal @db.Decimal(12, 2)
 
   status ProposalStatus @default(RASCUNHO)
 
@@ -57,4 +57,8 @@ model Proposal {
   updatedAt DateTime @updatedAt
 
   corban User @relation("CorbanProposals", fields: [corbanId], references: [id])
+
+  @@index([corbanId])
+  @@index([customerCpf])
+  @@index([status])
 }

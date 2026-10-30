@@ -1,12 +1,8 @@
-import {
-	PrismaClient,
-	ProposalStatus,
-	UserRole,
-} from "@prisma/client";
+import { PrismaClient, ProposalStatus, UserRole } from "@prisma/client";
 import { PrismaPg } from "@prisma/adapter-pg";
 import bcrypt from "bcrypt";
 import "dotenv/config";
-import { calculateCreditValues } from "../src/shared/utils/credit-calculator.js";
+import { calculateProposal } from "../src/shared/utils/credit-calculator.js";
 
 const adapter = new PrismaPg({
 	connectionString: process.env.DATABASE_URL,
@@ -19,8 +15,8 @@ const prisma = new PrismaClient({
 async function main() {
 	/*
 	 Limpa os dados existentes antes de executar o seed.
-	 A ordem importa: primeiro remove as propostas porque 
-     elas dependem dos usuários através do relacionamento corbanId.
+	 A ordem importa: primeiro remove as propostas porque
+	 elas dependem dos usuários através do relacionamento corbanId.
 	*/
 	await prisma.proposal.deleteMany();
 	await prisma.user.deleteMany();
@@ -29,13 +25,9 @@ async function main() {
 	 Cria o hash da senha
 	 Nunca salvamos senha em texto puro.
 	*/
-	const passwordHash = await bcrypt.hash(
-		"Teste@2024",
-		10,
-	);
+	const passwordHash = await bcrypt.hash("Teste@2024", 10);
 
-
-	// Criação dos usuários CORBAN.	
+	// Criação dos usuários CORBAN.
 	const corban1 = await prisma.user.create({
 		data: {
 			name: "Corban 1",
@@ -77,41 +69,14 @@ async function main() {
 	});
 
 	/*
-	 Calcula os valores financeiros das propostas.
-	 A taxa é informada conforme a tabela do desafio.
-	 O valor da parcela e total são calculados pela
-	 mesma regra que será usada futuramente na API.
+	 Taxa, parcela e total são calculados pela
+	 mesma regra utilizada pela API na criação.
 	*/
-	const proposal1Values = calculateCreditValues(
-		5000,
-		2.49,
-		12,
-	);
-
-	const proposal2Values = calculateCreditValues(
-		10000,
-		2.29,
-		18,
-	);
-
-	const proposal3Values = calculateCreditValues(
-		15000,
-		2.79,
-		24,
-	);
-
-	const proposal4Values = calculateCreditValues(
-		8000,
-		1.89,
-		12,
-	);
-
-	const proposal5Values = calculateCreditValues(
-		3000,
-		1.99,
-		6,
-	);
-
+	const proposal1Values = calculateProposal(5000, 12);
+	const proposal2Values = calculateProposal(10000, 18);
+	const proposal3Values = calculateProposal(15000, 24);
+	const proposal4Values = calculateProposal(8000, 12);
+	const proposal5Values = calculateProposal(3000, 6);
 
 	/*
 	 Criação das propostas iniciais.
@@ -131,7 +96,6 @@ async function main() {
 				requestedAmount: 5000,
 				installments: 12,
 
-				interestRate: 2.49,
 				...proposal1Values,
 
 				status: ProposalStatus.RASCUNHO,
@@ -147,7 +111,6 @@ async function main() {
 				requestedAmount: 10000,
 				installments: 18,
 
-				interestRate: 2.29,
 				...proposal2Values,
 
 				status: ProposalStatus.EM_ANALISE,
@@ -163,7 +126,6 @@ async function main() {
 				requestedAmount: 15000,
 				installments: 24,
 
-				interestRate: 2.79,
 				...proposal3Values,
 
 				status: ProposalStatus.APROVADA,
@@ -179,7 +141,6 @@ async function main() {
 				requestedAmount: 8000,
 				installments: 12,
 
-				interestRate: 1.89,
 				...proposal4Values,
 
 				status: ProposalStatus.REPROVADA,
@@ -197,7 +158,6 @@ async function main() {
 				requestedAmount: 3000,
 				installments: 6,
 
-				interestRate: 1.99,
 				...proposal5Values,
 
 				status: ProposalStatus.CANCELADA,
@@ -206,7 +166,6 @@ async function main() {
 			},
 		],
 	});
-
 
 	console.log("Proposals created successfully");
 }
